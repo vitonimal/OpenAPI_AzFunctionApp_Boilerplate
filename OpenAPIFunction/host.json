@@ -9,14 +9,5 @@
     }
   },
   "extensions": {
-    "Swashbuckle": {
-      "Documents": [
-        {
-          "Title": "API docs",
-          "Version": "v1",
-          "Description": "api docs for apim import"
-        }
-      ]
-    }
   },
 }

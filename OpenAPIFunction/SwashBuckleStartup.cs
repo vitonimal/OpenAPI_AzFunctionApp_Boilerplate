@@ -6,15 +6,29 @@ using Microsoft.Azure.WebJobs.Hosting;
 using Microsoft.Azure.Functions.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection;
 using System;
+using Microsoft.OpenApi;
+using AzureFunctions.Extensions.Swashbuckle.Settings;
 
-[assembly: WebJobsStartup(typeof(SwashBuckleStartup))]
+[assembly: FunctionsStartup(typeof(SwashBuckleStartup))]
 namespace OpenAPIFunction
 {
-    public class SwashBuckleStartup : IWebJobsStartup
+    public class SwashBuckleStartup : FunctionsStartup
     {
-        public void Configure(IWebJobsBuilder builder)
+
+        public override void Configure(IFunctionsHostBuilder builder)
         {
-            builder.AddSwashBuckle(Assembly.GetExecutingAssembly());
+            builder.AddSwashBuckle(Assembly.GetExecutingAssembly(), opts => {
+                opts.Documents = new[]
+                {
+                    new SwaggerDocument
+                    {
+                        Name = "v1",
+                        Title = "NAME_OF_API",
+                        Description = "Swagger test document",
+                        Version = "v2"
+                    }
+                };
+            });
         }
     }
 }
