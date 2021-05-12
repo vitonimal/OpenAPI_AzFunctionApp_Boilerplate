@@ -17,7 +17,7 @@ namespace OpenAPIFunction
     {
         [FunctionName("Function1")]
         public static async Task<IActionResult> Run(
-            [HttpTrigger(AuthorizationLevel.Function, "get", "post", Route = null)] HttpRequest req,
+            [HttpTrigger(AuthorizationLevel.Anonymous, "get", "post", Route = null)] HttpRequest req,
             ILogger log)
         {
             log.LogInformation("C# HTTP trigger function processed a request.");
@@ -38,7 +38,7 @@ namespace OpenAPIFunction
         [SwaggerIgnore]
         [FunctionName("Swagger")]
         public static Task<HttpResponseMessage> Run2(
-            [HttpTrigger(AuthorizationLevel.Function, "get", Route = "Swagger/json")] HttpRequestMessage req,
+            [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = "Swagger/json")] HttpRequestMessage req,
             [SwashBuckleClient] ISwashBuckleClient swashBuckleClient)
         {
             return Task.FromResult(swashBuckleClient.CreateSwaggerJsonDocumentResponse(req));
@@ -47,7 +47,7 @@ namespace OpenAPIFunction
         [SwaggerIgnore]
         [FunctionName("SwaggerUi")]
         public static Task<HttpResponseMessage> Run3(
-            [HttpTrigger(AuthorizationLevel.Function, "get", Route = "Swagger/ui")] HttpRequestMessage req,
+            [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = "Swagger/ui")] HttpRequestMessage req,
             [SwashBuckleClient] ISwashBuckleClient swashBuckleClient)
         {
             return Task.FromResult(swashBuckleClient.CreateSwaggerUIResponse(req, "swagger/json"));
